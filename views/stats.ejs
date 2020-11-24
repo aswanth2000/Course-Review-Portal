@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home JS</title>
+    <link rel="stylesheet" type="text/css" href="/styles/dummyhome.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        // Load the Visualization API and the corechart package.
+
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+
+        // Set a callback to run when the Google Visualization API is loaded.
+
+
+        // Create the data table.
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Queries', 'Analysis'],
+                ['Answered', <%- answered.answered%>],
+                ['Pending', <%- query.query%> - <%- answered.answered%>]
+            ]);
+
+            var options = {
+                title: 'Query Anlaysis'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="/admin/home"><i class="fas fa-university"></i> Course Review Portal</a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin/home">Admin Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/home/stats">Stats</a>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav mt-2 mt-lg-0 nav justify-content-end ">
+                    <li class="nav-item ">
+                        <a class="nav-link active " href="# "><i class="fas fa-user-alt"></i>  Hello, Admin</a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link btn btn-outline-danger" onclick="logoutfnc()" role="button">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+    <div id="ratings" style="display: none;">
+        <%= courserating.length %>
+    </div>
+    <div class="container">
+        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 100%; height: 100%;">
+            <div class="card-body">
+                <h5 class="card-title">Overall stats showing population of each entity</h5>
+            </div>
+            <canvas id="myChart" style="height: 300px;width: 100%;" class="char card-img-bottom"></canvas>
+        </div>
+
+
+    </div>
+    <div class="container">
+        <div class="card-deck">
+            <div class="card wide shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title">How many Queries are answered?</h5>
+                </div>
+                <div id="piechart" style=" height: 100%;"></div>
+            </div>
+            <div class="card wide shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title">Avg Rating for Each Course based on Feedback</h5>
+                </div>
+                <canvas id="myChart1"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card-deck">
+            <div class="card wide shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Queries for each Course</h5>
+                </div>
+                <canvas id="myChart2"></canvas>
+            </div>
+            <div class="card wide shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Feedbacks for each Course</h5>
+                </div>
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="container ">
+        <div class="row">
+            <div class="col-sm">
+                <h5 class="card-title" style="margin-left: 10%;">How many Queries are answered?</h5>
+                <div id="piechart" style="width: 800px; height: 500px;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="chart">
+                    <canvas id="myChart1" style="width: 800px; height: 500px; margin-left: -10%;"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div> -->
+    <!-- <div class="container">
+        <div class="row ">
+            <div class="col-sm">
+                <canvas id="myChart2" style="width: 700px; height: 500px;"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <canvas id="myChart3" style="width: 700px; height: 500px;"></canvas>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        
+    </div> -->
+    <table class="table" id="dataTable" style="display: none;">
+        <thead>
+            <th>CourseID</th>
+            <th>Avg_rating</th>
+        </thead>
+        <tbody>
+            <% courserating.forEach(function(course) {%>
+
+                <tr>
+                    <td>
+                        <%= course.course_id %>
+                    </td>
+                    <td>
+                        <%= course.avg_rating %>
+                    </td>
+
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+    <table class="table" id="dataTable1" style="display: none;">
+        <thead>
+            <th>CourseID</th>
+            <th>Queries</th>
+        </thead>
+        <tbody>
+            <% quer.forEach(function(course) {%>
+
+                <tr>
+                    <td>
+                        <%= course.Course_Id %>
+                    </td>
+                    <td>
+                        <%= course.cnt %>
+                    </td>
+
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+    <table class="table" id="dataTable2" style="display: none;">
+        <thead>
+            <th>CourseID</th>
+            <th>Feeds</th>
+        </thead>
+        <tbody>
+            <% feeds.forEach(function(course) {%>
+
+                <tr>
+                    <td>
+                        <%= course.Course_Id %>
+                    </td>
+                    <td>
+                        <%= course.cnt %>
+                    </td>
+
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css" />
+    <script>
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["Courses", "Students", "Faculties", "Feedbacks", "Queries"],
+                datasets: [{
+                    label: "Stats",
+                    data: [<%- courses.courses%>, <%- students.students%>, <%- faculties.faculties%>, <%- feedbacks.feedbacks%>, <%- query.query%>],
+                    backgroundColor: [
+                        "rgba(54, 162, 235, 0.2)"
+                    ],
+                    borderColor: [
+                        "#3e95cd"
+                    ],
+                    borderWidth: 1,
+                }, ],
+            },
+            options: {
+                maintainAspectRatio: true,
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    }, ],
+                },
+            },
+        });
+
+        function BuildChart(labels, values, chartTitle) {
+            var ctx1 = document.getElementById("myChart1").getContext('2d');
+            var myChart1 = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: labels, // Our labels
+                    datasets: [{
+                        label: chartTitle, // Name the series
+                        data: values // Our values
+
+                    }]
+                },
+                options: {
+                    responsive: true, // Instruct chart js to respond nicely.
+                    maintainAspectRatio: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                            },
+                        }, ],
+                    }, // Add to prevent default behaviour of full-width/height 
+                },
+            });
+            return myChart1;
+        }
+        var table = document.getElementById('dataTable');
+        var json = []; // first row needs to be headers 
+        var headers = [];
+        for (var i = 0; i < table.rows[0].cells.length; i++) {
+            headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+        }
+        // go through cells 
+        for (var i = 1; i < table.rows.length; i++) {
+            var tableRow = table.rows[i];
+            var rowData = {};
+            for (var j = 0; j < tableRow.cells.length; j++) {
+                rowData[headers[j]] = tableRow.cells[j].innerHTML.trim();
+            }
+            json.push(rowData);
+        }
+        console.log(json);
+        // Map json values back to label array
+        var labels = json.map(function(e) {
+            return e.courseid;
+        });
+        console.log(labels);
+        // Map json values back to values array
+        var values = json.map(function(e) {
+            return e.avg_rating;
+        });
+        console.log(values);
+        var chart1 = BuildChart(labels, values, "Avg Course Rating");
+        var table1 = document.getElementById('dataTable1');
+        var json1 = []; // first row needs to be headers 
+        var headers1 = [];
+        for (var i = 0; i < table1.rows[0].cells.length; i++) {
+            headers1[i] = table1.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+        }
+        // go through cells 
+        for (var i = 1; i < table1.rows.length; i++) {
+            var tableRow1 = table1.rows[i];
+            var rowData1 = {};
+            for (var j = 0; j < tableRow1.cells.length; j++) {
+                rowData1[headers1[j]] = tableRow1.cells[j].innerHTML.trim();
+            }
+            json1.push(rowData1);
+        }
+        console.log(json1);
+        // Map json values back to label array
+        var labels1 = json1.map(function(e) {
+            return e.courseid;
+        });
+        console.log(labels1);
+        // Map json values back to values array
+        var values1 = json1.map(function(e) {
+            return e.queries;
+        });
+        //---------------------------------------------------------
+        var table2 = document.getElementById('dataTable2');
+        var json2 = []; // first row needs to be headers 
+        var headers2 = [];
+        for (var i = 0; i < table2.rows[0].cells.length; i++) {
+            headers2[i] = table2.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+        }
+        // go through cells 
+        for (var i = 1; i < table2.rows.length; i++) {
+            var tableRow2 = table2.rows[i];
+            var rowData2 = {};
+            for (var j = 0; j < tableRow2.cells.length; j++) {
+                rowData2[headers2[j]] = tableRow2.cells[j].innerHTML.trim();
+            }
+            json2.push(rowData2);
+        }
+        console.log("FEEDSSSS");
+        console.log(json2);
+        // Map json values back to label array
+        var labels2 = json2.map(function(e) {
+            return e.courseid;
+        });
+        console.log("labelsss")
+        console.log(labels2);
+        // Map json values back to values array
+        var values2 = json2.map(function(e) {
+            return e.feeds;
+        });
+        console.log(values2);
+        var ctx3 = document.getElementById("myChart3").getContext('2d');
+        var myChart2 = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: labels2, // Our labels
+                datasets: [{
+                    label: "Feedbacks", // Name the series
+                    data: values2, // Our values
+                    backgroundColor: [ // Specify custom colors
+                        "rgba(54, 162, 235, 0.2)"
+                    ],
+                    borderColor: [ // Add custom color borders
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    order: 1 // Specify bar border width
+                }]
+            },
+            options: {
+                responsive: true, // Instruct chart js to respond nicely.
+                maintainAspectRatio: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    }, ],
+                }, // Add to prevent default behaviour of full-width/height 
+            },
+        });
+
+        var ctx2 = document.getElementById("myChart2").getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: labels1, // Our labels
+                datasets: [{
+                    label: "Queries", // Name the series
+                    data: values1, // Our values
+                    backgroundColor: [ // Specify custom colors
+                        "rgba(54, 162, 235, 0.2)"
+                    ],
+                    borderColor: [ // Add custom color borders
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    order: 1 // Specify bar border width
+                }]
+            },
+            options: {
+                responsive: true, // Instruct chart js to respond nicely.
+                maintainAspectRatio: true,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    }, ],
+                }, // Add to prevent default behaviour of full-width/height 
+            },
+        });
+
+        var tkn = localStorage.getItem("token");
+        if (!tkn) {
+            window.location.replace("/login");
+        }
+        var role = localStorage.getItem("role");
+
+
+        function logoutfnc() {
+            localStorage.clear();
+            window.location.replace("/login");
+
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js " integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj " crossorigin="anonymous "></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js " integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN " crossorigin="anonymous "></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js " integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV " crossorigin="anonymous "></script>
+
+</body>
+
+
+</html>

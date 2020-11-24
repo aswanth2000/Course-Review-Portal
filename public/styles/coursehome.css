@@ -1,0 +1,45 @@
+.cnt img {
+    height: 300px;
+    width: 100%;
+}
+
+.char {
+    margin-top: 50%;
+    height: 100%;
+    width: 100%;
+}
+
+.card2 img {
+    height: 75px;
+    width: 100px;
+}
+
+.feedbacks {
+    margin-top: -3%;
+    margin-left: 3%;
+}
+
+.feedform {
+    margin-top: 2%;
+}
+
+.input-group-prepend span {
+    width: 40px;
+    background-color: rgb(93, 179, 182);
+    color: white;
+    border: 0 !important;
+}
+
+.input-group-prepend span:hover {
+    background-color: rgb(57, 147, 150) !important;
+}
+
+.btn-primary {
+    background-color: rgb(93, 179, 182) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background-color: rgb(57, 147, 150) !important;
+}

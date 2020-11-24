@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error Page</title>
+</head>
+
+<body>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        <span sl></span>
+    </div>
+    <script>
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
+        }
+
+        console.log("Hello");
+        sleep(1000);
+        console.log("World!");
+        localStorage.clear();
+        window.location.replace("/login");
+    </script>
+</body>
+
+</html>

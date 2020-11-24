@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faculty Home</title>
+    <link rel="stylesheet" type="text/css" href="/styles/home.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#"><i class="fas fa-university"></i> Course Review Portal</a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" id="homelink">Faculty Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav mt-2 mt-lg-0 nav justify-content-end ">
+                    <li class="nav-item ">
+                        <a class="nav-link active " href="# "><i class="fas fa-user-alt"></i> Hello,<span id="usr"></span></a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link btn btn-outline-danger" onclick="logoutfnc()" role="button">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+    <!-- <div class="container">
+        <div class="card" style="margin-bottom: 3%;margin-top: 1%;max-width: 60%; ">
+            <div class="row">
+                <div class="col">
+                    <img src="https://www.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png" style="height: 200px; width: 300px;" class="card-img" alt="...">
+                </div>
+                <div class="col">
+                    <div class="card-body">
+                        <h5 class="card-title">Hello, Proffessor</h5>
+                        <p class="card-text">Welcome Back.</p>
+                        <p class="card-text">Here is a list of courses and the feedback students have given about the course.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="container" style="padding-top:2% ;">
+        <form id="filter" method="POST">
+            <h5>Search By:</h5>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+
+                    <input type="text" name="field1" class="form-control" placeholder="coursecode/dept">
+                </div>
+                <div class="form-group col-md-3">
+
+                    <select id="type" name="type" class="form-control" required>
+                        <option selected>Elective</option>
+                        <option>Core</option>
+                        </select>
+
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-primary filter">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <h2>Courses</h2>
+        <div class="row row-cols-1 row-cols-md-3">
+            <% courses.forEach(function(course) {%>
+
+                <div class="col mb-4">
+                    <div class="card" style="min-height: 360px; border: 1px solid rgb(93, 179, 182);
+                    border-radius: 5%;">
+                        <img src="https://www.learnod.com/img/courses/technical-analysis-online-course.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <%=course.course_id  %> -
+                                    <%= course.name  %>
+                            </h6>
+                            <h6 class="card-text"> (
+                                <%= course.Type %> )</h6>
+
+                            <a style="margin-top: 2%;" href="/course/<%= course.course_id %>" class="btn btn-info">Info</a>
+                        </div>
+
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+
+
+
+    </div>
+
+
+
+    <script>
+        var tkn = localStorage.getItem("token");
+        var usr = localStorage.getItem("user");
+        console.log(usr);
+        document.getElementById('filter').action = "/home/filter/" + usr;;
+
+        if (!tkn) {
+            window.location.replace("/login");
+        }
+        var role = localStorage.getItem("role");
+        if (role != "student") {
+            document.getElementById("homelink").href = "/home/" + usr;
+            document.getElementById("usr").innerHTML = usr;
+        } else {
+
+            document.getElementById("usr").innerHTML = usr;
+
+        }
+
+        function logoutfnc() {
+            localStorage.clear();
+            window.location.replace("/login");
+
+        }
+    </script>
+</body>
+
+
+</html>

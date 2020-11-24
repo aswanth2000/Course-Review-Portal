@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>student Home</title>
+    <link rel="stylesheet" type="text/css" href="/styles/stuprofile.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#"><i class="fas fa-university"></i> Course Review Portal</a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" id="homelink">Student Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-ite">
+                        <a class="nav-link" id="link">Profile</a>
+                    </li>
+
+
+                </ul>
+                <ul class="navbar-nav mt-2 mt-lg-0 nav justify-content-end ">
+                    <li class="nav-item ">
+                        <a class="nav-link active " href="# "><i class="fas fa-user-alt"></i> Hello,<span id="usr"></span></a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link btn btn-outline-danger" onclick="logoutfnc()" role="button">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <form class="form-group" onsubmit="return cgpachecker()" id="edit" method="POST">
+                <div class="col-md-12 border-right border-left">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Profile Settings</h4>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">First Name</label><input type="text" class="form-control" readonly value="<%=student[0].Fname%>"></div>
+                            <div class="col-md-6"><label class="labels">Last Name</label><input type="text" class="form-control" readonly value="<%=student[0].Lname%>"></div>
+                        </div>
+                        <div class="row mt-3">
+                            <% if(contact.length===0){ %>
+                                <div class="col-md-12"><label class="labels">PhoneNumber</label><input type="text" class="form-control" name="phno" placeholder="Enter your Contact No"></div>
+                                <% }else{ %>
+                                    <div class="col-md-12"><label class="labels">PhoneNumber</label><input type="text" class="form-control" name="phno" value="<%=contact[0].Contact_no%>"></div>
+                                    <% } %>
+                                        <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" name="address" placeholder="Enter address" value=""></div>
+                                        <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" readonly value="<%=student[0].Email_id%>"></div>
+                                        <div class="col-md-12"><label class="labels">CGPA</label><input type="text" class="form-control" name="cgpa" id="cgpa" placeholder="Enter CGPA"></div>
+                        </div>
+
+                        <input class="btn btn-primary profile-button" style="margin-top:3% ;" type="submit" value="Save Profile">
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        var tkn = localStorage.getItem("token");
+        var usr = localStorage.getItem("user");
+        console.log(usr);
+
+
+        if (!tkn) {
+            window.location.replace("/login");
+        }
+        var role = localStorage.getItem("role");
+        if (role != "student") {
+            //document.getElementById('info').innerHTML = 'you are logged in as a Faculty';
+            document.getElementById("homelink").href = "/home/student/" + usr;
+            document.getElementById("link").href = "/home/student/profile/" + usr;
+            document.getElementById("edit").action = "/home/student/profile/" + usr;
+            document.getElementById("usr").innerHTML = usr;
+        } else {
+            //document.getElementById('info').innerHTML = 'you are logged in as a Student';
+            document.getElementById("homelink").href = "/home/student/" + usr;
+            document.getElementById("link").href = "/home/student/profile/" + usr;
+            document.getElementById("edit").action = "/home/student/profile/" + usr;
+            document.getElementById("usr").innerHTML = usr;
+
+        }
+
+        function cgpachecker() {
+            console.log("Triggered!!")
+            if (parseFloat(document.getElementById("cgpa").value) > 0 && parseFloat(document.getElementById("cgpa").value) <= 10) {
+                return true;
+
+            } else {
+
+                alert('CGPA must be less than 10');
+                return false;
+            }
+
+        }
+
+        function logoutfnc() {
+            localStorage.clear();
+            window.location.replace("/login");
+
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+
+
+</html>

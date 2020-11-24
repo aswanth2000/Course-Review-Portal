@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>student Home</title>
+    <link rel="stylesheet" type="text/css" href="/styles/home.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#"><i class="fas fa-university"></i> Course Review Portal</a>
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" id="homelink">Student Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="link1">Profile</a>
+                    </li>
+
+
+                </ul>
+                <ul class="navbar-nav mt-2 mt-lg-0 nav justify-content-end ">
+                    <li class="nav-item ">
+                        <a class="nav-link active " href="# "><i class="fas fa-user-alt"></i> Hello,<span id="usr"></span></a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link btn btn-outline-danger" onclick="logoutfnc()" role="button">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+    <!-- <div class="container">
+        <div class="card" style="margin-bottom: 3%;margin-top: 1%;max-width: 60%; ">
+            <div class="row">
+                <div class="col">
+                    <img src="data:image/png;base64,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"
+                        style="height: 200px; width: 300px;" class="card-img" alt="...">
+                </div>
+                <div class="col" style="margin-left: 1%;">
+                    <div class="card-body">
+                        <h5 class="card-title">Hey, Buddy!</h5>
+                        <p class="card-text">Welcome Back.</p>
+                        <p class="card-text">Here is a list of courses from which you can select your courses comprehensively.</p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div> -->
+    <div class="container" style="padding-top:2% ;">
+        <form id="filter" method="POST">
+            <h5>Search By:</h5>
+            <div class="form-row">
+                <div class="input-group form-group col-md-6">
+                    <div class="input-group-prepend talk">
+                        <span class="input-group-text"><i class="fas fa-microphone"></i></span>
+                    </div>
+                    <input type="text" name="field1" class="form-control content" placeholder="coursecode/dept">
+                </div>
+                <div class="form-group col-md-3">
+
+                    <select id="type" name="type" class="form-control" required>
+                        <option selected>Elective</option>
+                        <option>Core</option>
+                        </select>
+
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-primary filter">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <h2>Courses</h2>
+        <div class="row row-cols-1 row-cols-md-3">
+            <% courses.forEach(function(course) {%>
+
+                <div class="col mb-4">
+                    <div class="card" style="min-height: 360px; border: 1px solid rgb(93, 179, 182);
+                    border-radius: 5%;">
+                        <img src="https://www.learnod.com/img/courses/technical-analysis-online-course.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <%=course.course_id  %> -
+                                    <%= course.name  %>
+                            </h6>
+                            <h6 class="card-text"> (
+                                <%= course.Type %> )</h6>
+
+                            <a style="margin-top: 2%;" href="/course/<%= course.course_id %>" class="btn btn-info">Info</a>
+                        </div>
+
+                    </div>
+                </div>
+                <% }); %>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        var tkn = localStorage.getItem("token");
+        var usr = localStorage.getItem("user");
+        var btn = document.querySelector(".talk");
+        var content = document.querySelector(".content");
+        console.log(usr);
+        document.getElementById('filter').action = "/home/student/filter/" + usr;
+        var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        var recogniton = new SpeechRecognition();
+        recogniton.onstart = function() {
+            console.log("Voice is Activated, talk to microphone");
+
+        }
+        recogniton.onresult = function(event) {
+            var current = event.resultIndex;
+            var transcript = event.results[current][0].transcript;
+            content.value = transcript;
+            console.log(transcript);
+
+        }
+        btn.addEventListener('click', function() {
+            recogniton.start();
+        });
+
+
+        if (!tkn) {
+            window.location.replace("/login");
+        }
+        var role = localStorage.getItem("role");
+        if (role != "student") {
+            document.getElementById("homelink").href = "/home/student/" + usr;
+            document.getElementById("link1").href = "/home/student/profile/" + usr;
+            document.getElementById("usr").innerHTML = usr;
+        } else {
+            document.getElementById("homelink").href = "/home/student/" + usr;
+            document.getElementById("link1").href = "/home/student/profile/" + usr;
+            document.getElementById("usr").innerHTML = usr;
+
+        }
+
+        function logoutfnc() {
+            localStorage.clear();
+            window.location.replace("/login");
+
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+
+
+</html>

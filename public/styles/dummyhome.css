@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid #cdcdcd;
+}
+
+table th,
+table td {
+    padding: 5px;
+    text-align: left;
+}
+
+#submit {
+    height: 40px;
+}
+
+.btn-primary {
+    background-color: rgb(93, 179, 182) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background-color: rgb(57, 147, 150) !important;
+}
+
+.wide {
+    width: 720px !important;
+}

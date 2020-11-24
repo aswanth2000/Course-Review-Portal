@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="../styles/facregister.css">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+
+
+<body>
+
+    <div class="container">
+        <% if(errmain!="") {%>
+            <div class="alert alert-danger" style="max-width: 240px;" role="alert">
+                <%= errmain %>
+            </div>
+            <% }else{ %>
+                <div class="alert alert-success" style="max-width: 480px;" role="alert">
+                    Hello,There!
+                </div>
+                <% } %>
+                    <div class="alert alert-danger hide" id="err1" role="alert">
+                        Email ID Mismatch.
+                    </div>
+                    <div class="alert alert-danger hide" id="err2" role="alert">
+                        Password Mismatch
+                    </div>
+                    <div class="alert alert-danger hide" id="err3" role="alert">
+                        Phone No incorrect
+                    </div>
+
+                    <div class="d-flex justify-content-center h-100">
+                        <div class="card">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link " href="/student/register">Student</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#">Faculty</a>
+                                </li>
+
+                            </ul>
+                            <div class="card-header">
+                                <h3>Faculty Sign Up</h3>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" onsubmit="return subfunc()" action="/faculty/register">
+                                    <div class="input-group form-group">
+                                        <input type="text" name="Fname" class="form-control" placeholder="Fisrst Name" required>
+                                        <input type="text" name="Lname" class="form-control" placeholder="Last Name" required>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <input type="text" name="Username" class="form-control" placeholder="Username (Your College ID)" required>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <select id="type" name="Gender" class="form-control" required>
+                                        <option selected>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <input type="email" id="Email_id" name="Email_id" class="form-control" placeholder="Email-id" title="Please provide only your College Email Ever corporate e-mail address" required>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <input type="email" id="Confirm_Email_id" class="form-control" placeholder="Confirm Email-id" title="Please provide only your College Email" required>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Date Of Birth</span>
+                                        </div>
+
+                                        <input type="date" name="dob" id="datepicker" min="1900-01-01" max="2020-09-11" class="form-control date" required>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <input type="text" name="phno" class="form-control" id="phno" placeholder="Phone No" required>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <input type="password" id="Password" name="Password" class="form-control" minlength="8" placeholder="Password" required>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <input type="password" id="Confirm_Password" class="form-control" placeholder="Confirm Password" minlength="8" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Register" class="btn btn-secondary btn-lg btn-block login_btn">
+                                    </div>
+                                    <a href="/login">Go Back to Login!</a>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+    </div>
+    <script>
+        function subfunc() {
+            var email1 = document.getElementById("Email_id").value;
+            var email2 = document.getElementById("Confirm_Email_id").value;
+            var password1 = document.getElementById("Password").value;
+            var password2 = document.getElementById("Confirm_Password").value;
+            if (email1 != email2) {
+
+                document.getElementById("err1").classList.remove("hide");
+                return false;
+
+            }
+            if (password1 != password2) {
+
+                document.getElementById("err2").classList.remove("hide");
+                return false;
+            }
+            if (parseInt(document.getElementById("phno").value) < 1000000000 || parseInt(document.getElementById("phno").value) > 9999999999) {
+                document.getElementById("err3").classList.remove("hide");
+                return false;
+            }
+        }
+    </script>
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
